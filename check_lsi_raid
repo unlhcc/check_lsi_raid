@@ -288,7 +288,11 @@ sub getControllerStatus{
 		}
 		elsif($key eq 'Critical Disks'){
 			if($foundController{$key} != 0){
-				$status = 'Warning' unless $status eq 'Critical';
+				if($foundController{$key} > 1){
+					$status = 'Critical';
+				} else {
+					$status = 'Warning' unless $status eq 'Critical';
+				}
 				push @{$statusLevel_a[2]}, 'CTR_Critical_disks';
 				$statusLevel_a[3]->{'CTR_Critical_disks'} = $foundController{$key};
 			}
